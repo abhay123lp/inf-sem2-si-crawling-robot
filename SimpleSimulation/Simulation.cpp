@@ -29,3 +29,5 @@ Simulation::~Simulation()
 	delete m_world;
 	m_world = NULL;
 }
+
+//komentarz bez znaczenia
