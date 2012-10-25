@@ -153,10 +153,12 @@ void RobotSimulation::updateMotors()
 	vector<float> input;
 
 	input.push_back(sin(_jointA->GetJointAngle()));
+	input.push_back(cos(_jointA->GetJointAngle()));
 	input.push_back(sin(_jointB->GetJointAngle()));
+	input.push_back(cos(_jointB->GetJointAngle()));
 
 	input.push_back(sin(_roboMain->GetAngle()));
-	
+	input.push_back(_roboMain->GetLinearVelocity().x);
 
 	input.push_back(_roboMain->GetPosition().x - _roboArm1->GetPosition().x);
 	input.push_back(_roboMain->GetPosition().x - _roboArm2->GetPosition().x);

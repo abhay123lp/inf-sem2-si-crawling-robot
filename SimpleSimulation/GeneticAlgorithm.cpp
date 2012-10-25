@@ -14,7 +14,7 @@
 using namespace std;
 
 int layerCount = 3;
-int neuronsInLayer[] = {5, 3, 2};
+int neuronsInLayer[] = {8, 5, 2};
 
 vector<float> GeneticAlgorithm::generateUniforms(int count, float min, float max)
 {
@@ -72,7 +72,7 @@ void GeneticAlgorithm::evolve()
 
 	vector<GAMember> nextGeneration;
 
-	for (int i = 0; i < _members.size() / 3; i++)
+	for (int i = 0; i < _members.size(); i++)
 	{
 		//lets draw parents indexes
 		debug_print("about to draw parent indexes\n");
@@ -80,29 +80,10 @@ void GeneticAlgorithm::evolve()
 		int parentAIndex = drawMember();
 		int parentBIndex = drawMember();
 
-		debug_print("parentIndexA = %d, parentBIndex = %d", parentAIndex, parentBIndex);
-
-		while (parentAIndex == parentBIndex)
-		{
-			parentBIndex = drawMember();
-		}
-
-		cout<<"A.fitness = " << _members[parentAIndex].getFitness() <<"B.fitness= " << _members[parentBIndex].getFitness() << endl;
-
 		GAMember offspring (_members[parentAIndex], _members[parentBIndex]);
 		offspring.mutate();
 
 		nextGeneration.push_back(offspring);
-	}
-
-	//lets add some random ones!
-	while (nextGeneration.size() != _members.size())
-	{
-		int valuesToGenerate = MotorNeuralNetwork::calculateNeuronCount(layerCount, neuronsInLayer);
-
-		GAMember randomOffspring(generateUniforms(valuesToGenerate, -0.5, 0.5));
-
-		nextGeneration.push_back(randomOffspring);
 	}
 
 	//update our population

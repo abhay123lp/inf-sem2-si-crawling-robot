@@ -75,12 +75,12 @@ int main(int argc, char** argv)
 	srand(222);
 
 	vector<GAMember> topMembers;
-	GeneticAlgorithm* ga = new GeneticAlgorithm(50, 1);
+	GeneticAlgorithm* ga = new GeneticAlgorithm(30, 1);
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 250; i++)
 	{
 		topMembers.push_back(ga->getTopMember());
-		cout << ga->getTopMember().getFitness() << endl;
+		cout <<i <<": " << ga->getTopMember().getFitness() << endl;
 		ga->evolve();
 	}
 
@@ -100,7 +100,10 @@ int main(int argc, char** argv)
 	/*************************************************************************
 	/we have the special one. let's see how it moves
 	**************************************************************************/
-	cout << "Starting glutInit\n";
+	cout << "Learning procedure has finished. Type any character to procede to graphic presentation.\n";
+	char c;
+	cin >> c;
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutInitWindowSize(width, height);

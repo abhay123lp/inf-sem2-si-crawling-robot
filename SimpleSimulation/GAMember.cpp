@@ -1,6 +1,7 @@
 #include "GAMember.h"
 #include "RobotSimulation.h"
 #include "MotorNeuralNetwork.h"
+#include "RandomGenerator.h"
 
 #include <time.h>
 #include <iostream>
@@ -21,7 +22,7 @@ GAMember::GAMember(GAMember & memberA, GAMember & memberB) :
 
 	for (int i=0; i<memberA._values.size(); i++)
 	{
-		_values.push_back((memberA._values[i] + memberB._values[i])/2);
+		_values.push_back(memberA._values[i] + RandomGenerator::GenerateUniform() * (memberB._values[i] - memberA._values[i]));
 	}
 }
 
@@ -61,14 +62,9 @@ float GAMember::getFitness()
 
 void GAMember::mutate()
 {
-	if (((float)rand()/RAND_MAX) > 0.98)
+	for (int i=0; i<_values.size(); i++)
 	{
-		int index = (rand() % _values.size());
-		float mutation = ((float)rand()) / (RAND_MAX+1); //unified 0-1
-		mutation *= 2; //0-0.1
-		mutation -= 1; // -0.05 - 0.05
-
-		_values[index] += mutation;
+		_values[i] += RandomGenerator::GenerateNormal(0.0, 1.0);
 	}
 }
 
